@@ -2,8 +2,8 @@ name: Daily Update (22f3000632@ds.study.iitm.ac.in)
 
 on:
   schedule:
-    - cron: '0 22 * * *'  # Runs daily at 22:00 UTC (10 PM UTC, adjust if needed)
-  workflow_dispatch:      # Lets you test manually right away
+    - cron: '0 22 * * *'  # 10 PM UTC daily
+  workflow_dispatch:
 
 jobs:
   update:
@@ -16,12 +16,12 @@ jobs:
 
       - name: Update timestamp by RANI (22f3000632@ds.study.iitm.ac.in)
         run: |
-          echo "$(date -u) - Daily automated update" >> README.md
+          echo "# Daily Update - $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> UPDATES.md
 
       - name: Commit changes
         run: |
           git config user.name "DevSync Bot"
           git config user.email "22f3000632@ds.study.iitm.ac.in"
-          git add README.md
-          git commit -m "Daily update: $(date -u)" || exit 0
+          git add UPDATES.md
+          git commit -m "Daily update: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" || exit 0
           git push
